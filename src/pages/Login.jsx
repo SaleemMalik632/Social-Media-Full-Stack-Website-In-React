@@ -59,12 +59,12 @@ const Login = () => {
       {
         MobbileLogo && (
           <div className="absolute left-1/3 mt-10">
-            <img src={LogoMobile} alt="logo" className="w-40 ml-20 " /> 
-          </div> 
+            <img src={LogoMobile} alt="logo" className="w-40 ml-20 " />
+          </div>
         ) // show the logo in the center when the showBackground is false
-      } 
-      <div className={`w-${secondWireframe}     ${secondWireframe === 'full' ? 'm-5' : 'm-0'}`}>
-        <div className={` w-2/3 ${secondWireframe === 'full' ? 'm-0' : 'mt-80 ml-20'}`}>
+      }
+      <div className={`w-${secondWireframe}     ${secondWireframe === 'full' ? 'flex justify-center' : 'm-0'}`}>
+        <div className={` w-2/3 ${secondWireframe === 'full' ? '' : 'mt-80 ml-20'}`}>
           <div className={`text-2xl font-bold mb-9  ${secondWireframe === 'full' ? 'mt-[180px]' : 'mt-[-180px]'} `}>Login to Socialo</div>
           <form className="max-w-md" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
@@ -100,24 +100,26 @@ const Login = () => {
               </button>
             </div>
           </form>
-          <div className="flex items-center justify-between mb-9">
-            <div className="w-2/3 h-0.5 bg-gray-300"></div>
-            <div className="text-gray-500 italic  "> OR </div>
-            <div className="w-2/3 h-0.5 bg-gray-300"></div>
-          </div>
-          <div className="flex justify-between">
-            <button style={{ backgroundColor: '#3b5998' }} className="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  w-1/2 mr-2 flex items-center justify-center">
-              <FaFacebook className="mr-2" /> Facebook
-            </button>
-            <button style={{ backgroundColor: '#4285f4' }} className="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  w-1/2 mr-2 flex items-center justify-center">
-              <FaGoogle className="mr-2" /> Google
-            </button>
-          </div>
-          <div className="text-center mt-5">
-            <a href="/register" className="text-blue-600 hover:underline">Don't have Account </a>
-          </div>
-          <div  className="absolute  text-center text-blue-900 text-xs ml-40 mt-20">
-            © Copyright 2024 Socialo
+          <div className='' >
+            <div className="flex items-center justify-between mb-9">
+              <div className="w-2/3 h-0.5 bg-gray-300"></div>
+              <div className="text-gray-500 italic  "> OR </div>
+              <div className="w-2/3 h-0.5 bg-gray-300"></div>
+            </div>
+            <div className="flex justify-between">
+              <button style={{ backgroundColor: '#3b5998' }} className="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  w-1/2 mr-2 flex items-center justify-center">
+                <FaFacebook className="mr-2" /> Facebook
+              </button>
+              <button style={{ backgroundColor: '#4285f4' }} className="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  w-1/2 mr-2 flex items-center justify-center">
+                <FaGoogle className="mr-2" /> Google
+              </button>
+            </div>
+            <div className="text-center mt-5">
+              <a href="/register" className="text-blue-600 hover:underline">Don't have Account </a>
+            </div>
+            <div className="absolute  text-center text-blue-900 text-xs ml-40 mt-20">
+              © Copyright 2024 Socialo
+            </div>
           </div>
         </div>
       </div>
