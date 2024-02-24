@@ -18,9 +18,13 @@ const Login = () => {
 
   React.useEffect(() => {
     const handleResize = () => {
-      setShowBackground(window.innerWidth > 800); // Change 768 to your desired breakpoint
-      setSecondWireframe(window.innerWidth > 800 ? '1/2' : 'full'); // Change the condition and values as needed
-      SetmobbileLogo(window.innerWidth > 800 ? false : true);
+      const newShowBackground = window.innerWidth > 950;
+      setShowBackground(newShowBackground);
+      const newSecondWireframe = newShowBackground ? '1/2' : 'full';
+      setSecondWireframe(newSecondWireframe);
+      SetmobbileLogo(!newShowBackground);
+      console.log(newSecondWireframe);
+      console.log(window.innerWidth);
     };
 
     window.addEventListener('resize', handleResize);
@@ -28,6 +32,7 @@ const Login = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
 
   return (
     <div className="flex h-screen">
@@ -50,19 +55,15 @@ const Login = () => {
       {/* show the logo in the center when the showBackground is true  */}
       {
         MobbileLogo && (
-          <div className="absolute  left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-20">
-            <img src={LogoMobile} alt="logo" className="w-40" />
+          <div className="absolute left-1/3 mt-10">
+            <img src={LogoMobile} alt="logo" className="w-40 ml-20 " />
           </div>
         )
       }
-
-
-
-
-      <div className={`w-${secondWireframe} flex items-center justify-center ${secondWireframe === 'full' ? 'm-0' : 'm-10'}`}>
-        <div>
-          <div className="text-2xl font-bold mb-9 mt-[-120px]">Create your account</div>
-          <form className="max-w-md" onSubmit={handleSubmit(onSubmit)}>
+      <div className={`w-${secondWireframe} flex items-center justify-center ${secondWireframe === 'full' ? 'm-5' : 'm-0'}`}>
+        <div className={` ${secondWireframe === 'full' ? 'm-0' : 'mt-40'}`}>
+          <div className={`text-2xl font-bold mb-9  ${secondWireframe === 'full' ? 'mt-[180px]' : 'mt-[-180px]'} `}>Create your account</div> 
+          <form className="max-w-md" onSubmit={handleSubmit(onSubmit)}> 
             <div className="mb-4">
               <input
                 type="text"
