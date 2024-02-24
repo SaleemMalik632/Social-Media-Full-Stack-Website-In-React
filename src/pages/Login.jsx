@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { FaFacebook, FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [showPassword, setShowPassword] = React.useState(false);
   const [showBackground, setShowBackground] = React.useState(true);
   const [secondWireframe, setSecondWireframe] = React.useState('1/2'); // Default width
@@ -14,7 +14,10 @@ const Login = () => {
 
   const onSubmit = (data) => {
     console.log(data);
+    // Send the data to the server and clear the form
+    reset();
   };
+
 
   React.useEffect(() => {
     const handleResize = () => {
@@ -56,34 +59,34 @@ const Login = () => {
       {
         MobbileLogo && (
           <div className="absolute left-1/3 mt-10">
-            <img src={LogoMobile} alt="logo" className="w-40 ml-20 " />
-          </div>
-        )
-      }
-      <div className={`w-${secondWireframe} flex items-center justify-center ${secondWireframe === 'full' ? 'm-5' : 'm-0'}`}>
-        <div className={` ${secondWireframe === 'full' ? 'm-0' : 'mt-40'}`}>
-          <div className={`text-2xl font-bold mb-9  ${secondWireframe === 'full' ? 'mt-[180px]' : 'mt-[-180px]'} `}>Create your account</div> 
-          <form className="max-w-md" onSubmit={handleSubmit(onSubmit)}> 
+            <img src={LogoMobile} alt="logo" className="w-40 ml-20 " /> 
+          </div> 
+        ) // show the logo in the center when the showBackground is false
+      } 
+      <div className={`w-${secondWireframe}     ${secondWireframe === 'full' ? 'm-5' : 'm-0'}`}>
+        <div className={` w-2/3 ${secondWireframe === 'full' ? 'm-0' : 'mt-80 ml-20'}`}>
+          <div className={`text-2xl font-bold mb-9  ${secondWireframe === 'full' ? 'mt-[180px]' : 'mt-[-180px]'} `}>Login to Socialo</div>
+          <form className="max-w-md" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <input
                 type="text"
-                placeholder="Username"
-                {...register('username')} // Register the input field
-                className="border border-gray-600 focus:border-blue-600 focus:outline-none px-4 py-2 rounded-full mb-7 w-full transition-all duration-300 border-2"
-              />
-              <input
-                type="text"
                 placeholder="Email address"
-                {...register('email')} // Register the input field
+                {...register('email', { required: 'Email is required', pattern: { value: /^\S+@\S+$/i, message: 'Invalid email address' } })}
                 className="border border-gray-600 focus:border-blue-600 focus:outline-none px-4 py-2 rounded-full mb-7 w-full transition-all duration-300 border-2"
               />
+              {errors.email && <p className="text-red-500">{errors.email.message}</p>}
               <div className="relative">
                 <input
                   type={showPassword ? 'text' : 'password'}
                   placeholder="Password"
-                  {...register('password')}
+                  {...register('password', {
+                    required: 'Password is required', pattern: {
+                      value: /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,}$/, message: 'Password must contain at least 8 characters with at least one uppercase letter, one special character, and one number'
+                    }, minLength: { value: 8, message: 'Password must have at least 8 characters' }
+                  })}
                   className="border border-gray-600 focus:border-blue-600 focus:outline-none px-4 py-2 rounded-full mb-7 w-full transition-all duration-300 border-2"
                 />
+                {errors.password && <p className="text-red-500">{errors.password.message}</p>}
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
@@ -93,7 +96,7 @@ const Login = () => {
                 </button>
               </div>
               <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline w-full">
-                Register
+                Login
               </button>
             </div>
           </form>
@@ -111,9 +114,9 @@ const Login = () => {
             </button>
           </div>
           <div className="text-center mt-5">
-            <a href="/#" className="text-blue-600 hover:underline">Already have an account?</a>
+            <a href="/register" className="text-blue-600 hover:underline">Don't have Account </a>
           </div>
-          <div style={{ marginLeft: '130px', marginTop: '50px' }} className="absolute  text-center text-blue-900 text-xs">
+          <div  className="absolute  text-center text-blue-900 text-xs ml-40 mt-20">
             © Copyright 2024 Socialo
           </div>
         </div>

@@ -16,7 +16,7 @@ function App() {
   const { theme } = useSelector((state) => state.theme);
   console.log(theme);
   return (
-    <>
+    <> 
       <div className='w-full min-w-[100vh]'>
         <Routes>
           <Route element={<Layout />}>
@@ -24,6 +24,7 @@ function App() {
             <Route path="/profile/:id?" element={<Profile />} />
           </Route>
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="*" element={<h1>Not Found</h1>} />
         </Routes>
       </div>
