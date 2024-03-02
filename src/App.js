@@ -1,34 +1,43 @@
-import React, { useState } from 'react';
-import { Outlet, useLocation, Navigate, Routes, Route } from 'react-router-dom';
-import { Home, Profile, Login, ResetPassword, Register } from './pages/Index';
-import { useSelector } from 'react-redux';
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Home from "./pages/Profile";
+import LoginNewUser from "./pages/Login";
+import Signup from "./pages/Register";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
-function Layout() {
-  const user = null;
-  const location = useLocation();
-  return user?.token ? (
-    <Outlet />
-  ) : <Navigate to="/login" state={{ from: location }} replace />;
-};
 
 function App() {
-  const { theme } = useSelector((state) => state.theme);
-  console.log(theme);
+  const [user, setUser] = useState(null);
+  const getUser = async () => {
+    try {
+      console.log(process.env.REACT_APP_API_URL);
+      const url = `${process.env.REACT_APP_API_URL}/auth/login/success`;
+      const { data } = await axios.get(url, { withCredentials: true });
+      console.log(data);
+      setUser(data);
+      console.log(user);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    getUser();
+  
+  }, []); 
+
   return (
-    <> 
-      <div className='w-full min-w-[100vh]'>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/profile/:id?" element={<Profile />} />
-          </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="*" element={<h1>Not Found</h1>} />
-        </Routes>
-      </div>
-    </>
+    <div className="container">
+      <ToastContainer />
+      <Routes>
+        <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
+        <Route path="/login" element={user ? <Navigate to="/" /> : <LoginNewUser />} />
+        <Route path="/register" element={user ? <Navigate to="/" /> : <Signup />} />
+        <Route path="*" element={<> page is not found </>} />
+      </Routes>
+    </div>
   );
 }
 

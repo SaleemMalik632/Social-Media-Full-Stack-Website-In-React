@@ -1,10 +1,12 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import Theme from "./theam";
-import Userslice from "./userslice";
-import Postslice from './postSlice';
-const reducer = combineReducers({
-    theme: Theme,
-    Userslice: Userslice,
-    Postslice: Postslice
+import themeReducer from "./theam";
+import userReducer from "./userslice";
+import postReducer from './postSlice';
+
+const rootReducer = combineReducers({
+    theme: themeReducer,
+    user: userReducer,
+    post: postReducer
 });
-export default reducer;
+
+export default rootReducer;

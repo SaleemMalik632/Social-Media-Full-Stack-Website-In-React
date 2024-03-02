@@ -4,19 +4,41 @@ import Logo from '../images/logo.png'; // Assuming the image is located in the p
 import LogoMobile from '../images/logo-removebg-preview.jpg'; // Assuming the image is located in the public folder
 import { useForm } from 'react-hook-form';
 import { FaFacebook, FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa';
+import axios from 'axios';
 
 const Login = () => {
-  const { register, handleSubmit, reset,formState: { errors } } = useForm();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [showPassword, setShowPassword] = React.useState(false);
   const [showBackground, setShowBackground] = React.useState(true);
   const [secondWireframe, setSecondWireframe] = React.useState('1/2'); // Default width
   const [MobbileLogo, SetmobbileLogo] = React.useState(false); // Default logo
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // Send the data to the server and clear the form
-    reset();
+  const googleAuth = () => {
+    window.open(
+      `${process.env.REACT_APP_API_URL}/auth/google/callback`,
+      "_self"
+    );
   };
+
+  const onSubmit = async (data) => {
+    try {
+      console.log(data);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, data, { withCredentials: true });
+      console.log(response);
+      if (response.status === 200) {
+        moveToHome(); // Redirect to the home page after successful registration
+        reset(); // Clear the form
+      } else {
+        console.log('error');
+      }
+    } catch (error) {
+      console.error('Error occurred during registration:', error);
+    }
+  };
+  const moveToHome = () => {
+    window.open('/', "_self");
+  };
+
 
 
   React.useEffect(() => {
@@ -66,13 +88,13 @@ const Login = () => {
       <div className={`w-${secondWireframe} flex items-center justify-center ${secondWireframe === 'full' ? 'm-5' : 'm-0'}`}>
         <div className={` ${secondWireframe === 'full' ? 'm-0' : 'mt-40'}`}>
           <div className={`text-2xl font-bold mb-9  ${secondWireframe === 'full' ? 'mt-[180px]' : 'mt-[-180px]'} `}>Create your account</div>
-          <form className="max-w-md" onSubmit={handleSubmit(onSubmit)}>
+          <form className="max-w-md" onSubmit={handleSubmit(onSubmit)}> {/* Register the form */}
             <div className="mb-4">
               <input
                 required
                 type="text"
                 placeholder="Username"
-                {...register('username ')} // Register the input field
+                {...register('username', { required: true })} // Register the input field with the username
                 className="border border-gray-600 focus:border-blue-600 focus:outline-none px-4 py-2 rounded-full mb-7 w-full transition-all duration-300 border-2"
               />
               <input
@@ -118,7 +140,7 @@ const Login = () => {
             <button style={{ backgroundColor: '#3b5998' }} className="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  w-1/2 mr-2 flex items-center justify-center">
               <FaFacebook className="mr-2" /> Facebook
             </button>
-            <button style={{ backgroundColor: '#4285f4' }} className="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  w-1/2 mr-2 flex items-center justify-center">
+            <button onClick={googleAuth} style={{ backgroundColor: '#4285f4' }} className="hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  w-1/2 mr-2 flex items-center justify-center">
               <FaGoogle className="mr-2" /> Google
             </button>
           </div>
