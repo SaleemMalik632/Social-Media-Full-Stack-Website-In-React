@@ -5,14 +5,15 @@
 
 ::-webkit-scrollbar {
   display: none;
-   -ms-overflow-style: none;  /* IE and Edge */
+  -ms-overflow-style: none;
+  /* IE and Edge */
   scrollbar-width: none;
 }
 
-.topbar{
-position: sticky;
-top: 0px;
-z-index: 49;
+.topbar {
+  position: sticky;
+  top: 0px;
+  z-index: 49;
 }
 
 
@@ -74,22 +75,36 @@ z-index: 49;
   :root {
     --color-bg: 227 227 227;
     --color-primary: 255 255 255;
-    --color-secondary:255 255 255;
+    --color-secondary: 255 255 255;
     --color-ascent1: 0 0 0;
     --color-ascent2: 89 91 100;
     --color-blue: 6 90 216;
     --color-white: 255 255 255;
 
   }
+
   /* //15 23 42  21 30 49*/
   [data-theme="dark"] {
-     --color-bg: 12 12 12;
-     --color-primary: 31 31 31;
+    --color-bg: 12 12 12;
+    --color-primary: 31 31 31;
     --color-secondary: 47 45 48;
     --color-ascent1: 255 255 255;
     --color-ascent2: 164 161 162;
     --color-blue: 6 90 216;
     /* //16 176 255; */
     --color-white: 255 255 255;
+  } 
+
+  [data-theme="blue"] {
+    --color-bg: 15 23 42;
+    --color-primary: 21 30 49;
+    --color-secondary: 21 30 49;
+    --color-ascent1: 255 255 255;
+    --color-ascent2: 89 91 100;
+    --color-blue: 16 176 255;
+    --color-white: 255 255 255;
   }
+
+
+
 }

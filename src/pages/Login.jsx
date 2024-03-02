@@ -38,15 +38,14 @@ const Login = () => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, data, { withCredentials: true });
       console.log(response);
-
       if (response.ok) {
         moveToHome();
-        showToast();
         reset();
       } else {
-        console.log('error');
+        showToast();
       }
     } catch (error) {
+      showToast();
       console.error('Error occurred during login:', error);
 
     }
@@ -72,7 +71,7 @@ const Login = () => {
   return (
     <div className="flex sm:flex-row h-screen">
       {showBackground && (
-        <div className="relative w-2/3 h-screen bg-cover" style={{ backgroundImage: `url(${LoginPagePic})`, backgroundPosition: '-70px center' }}>
+        <div className="hidden md:block w-2/3 relative h-screen bg-cover" style={{ backgroundImage: `url(${LoginPagePic})`, backgroundPosition: '-70px center' }}>
           <div className="absolute top-6 left-6">
             <img src={Logo} alt="logo" className="w-22 h-20" />
           </div>
@@ -85,10 +84,11 @@ const Login = () => {
         </div>
       )}
       {mobileLogo && (
-        <div className="absolute left-1/3 mt-10">
+        <div className="absolute left-10 mt-10">
           <img src={LogoMobile} alt="logo" className="w-40 ml-20 " />
         </div>
       )}
+      {/* w-${secondWireframe} ${secondWireframe === 'full' ? 'flex justify-center' : 'm-0'} */}
       <div className={`w-${secondWireframe} ${secondWireframe === 'full' ? 'flex justify-center' : 'm-0'}`}>
         <div className={`w-2/3  border  ${secondWireframe === 'full' ? '' : 'mt-80 ml-20'}`}>
           <div className={`text-2xl font-bold mb-9 ${secondWireframe === 'full' ? 'mt-[180px]' : 'mt-[-180px]'} `}>Login to Socialo</div>

@@ -6,6 +6,7 @@ import LoginNewUser from "./pages/Login";
 import Signup from "./pages/Register";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from "react-redux";
 
 
 
@@ -25,11 +26,10 @@ function App() {
   };
   useEffect(() => {
     getUser();
-  
-  }, []); 
-
+  }, []);
+  const { theme } = useSelector((state) => state.theme);
   return (
-    <div className="container">
+    <div data-theme={theme} className='w-full min-h-[100vh]'>
       <ToastContainer />
       <Routes>
         <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
