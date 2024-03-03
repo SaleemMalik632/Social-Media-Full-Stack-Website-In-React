@@ -8,7 +8,7 @@ import { CiLocationOn } from "react-icons/ci";
 import moment from "moment";
 import { NoProfile } from "../assets";
 import { useredit } from "../redux/userslice";
-import Banner from "../images/Placeholder.jpg";
+import Banner from "../images/placehorder.PNG";
 
 
 const ProfileCard = ({ user }) => {
