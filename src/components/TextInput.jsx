@@ -11,7 +11,7 @@ const TextInput = React.forwardRef(
           <p className={`text-ascent-2 text-sm mb-2 ${labelStyles}`}>{label}</p>
         )}
 
-        <div>
+        <div> 
           <input
             type={type}
             name={name}

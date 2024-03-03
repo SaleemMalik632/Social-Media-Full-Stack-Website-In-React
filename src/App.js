@@ -7,6 +7,8 @@ import Signup from "./pages/Register";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from "react-redux";
+import { FriendsCard, Loading, PostCard, ProfileCard, TopBar, } from "./components";
+import Userprofile from "./pages/ViewProfile";
 
 
 
@@ -35,6 +37,7 @@ function App() {
         <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <LoginNewUser />} />
         <Route path="/register" element={user ? <Navigate to="/" /> : <Signup />} />
+        <Route path="/profile" element={<Userprofile />} />
         <Route path="*" element={<> page is not found </>} />
       </Routes>
     </div>

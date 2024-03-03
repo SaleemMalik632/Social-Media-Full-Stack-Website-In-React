@@ -2,18 +2,13 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { LiaEditSolid } from "react-icons/lia";
-import {
-  BsBriefcase,
-  BsFacebook,
-  BsInstagram,
-  BsPersonFillAdd,
-} from "react-icons/bs";
+import { BsBriefcase, BsFacebook, BsInstagram, BsPersonFillAdd } from "react-icons/bs";
 import { FaTwitterSquare } from "react-icons/fa";
 import { CiLocationOn } from "react-icons/ci";
 import moment from "moment";
-
 import { NoProfile } from "../assets";
 import { useredit } from "../redux/userslice";
+
 
 const ProfileCard = ({ user }) => {
   const { user: data, edit } = useSelector((state) => state.user);
@@ -22,39 +17,38 @@ const ProfileCard = ({ user }) => {
   return (
     <div>
       <div className='w-full bg-primary flex flex-col items-center shadow-sm rounded-xl px-6 py-4 '>
-        <div className='w-full flex items-center justify-between border-b pb-5 border-[#66666645]'>
-          <Link to={"/profile/" + user?._id} className='flex gap-2'>
-            <img
-              src={user?.profileUrl ?? NoProfile}
-              alt={user?.email}
-              className='w-14 h-14 object-cover rounded-full'
-            />
-
-            <div className='flex flex-col justify-center'>
-              <p className='text-lg font-medium text-ascent-1'>
-                {user?.firstName} {user?.lastName}
-              </p>
-              <span className='text-ascent-2'>
-                {user?.profession ?? "No Profession"}
-              </span>
-            </div>
-          </Link>
-
-          <div className=''>
+        <div className='w-full flex flex-col border-b  border-[#66666645]'>
+          <div className="flex justify-end   mx-4">
             {user?._id === data?._id ? (
               <LiaEditSolid
-                size={22}
+                size={25} 
                 className='text-blue cursor-pointer'
                 onClick={() => dispatch(useredit(true))}
               />
             ) : (
               <button
                 className='bg-[#0444a430] text-sm text-white p-1 rounded'
-                onClick={() => {}}
+                onClick={() => { }}
               >
                 <BsPersonFillAdd size={20} className='text-[#0f52b6]' />
               </button>
             )}
+          </div>
+          <div className="flex items-center justify-center mb-2">
+            <Link to={"/profile/" + user?._id}> 
+              <img
+                src={user?.profileUrl ?? NoProfile}
+                alt={user?.email}
+                className="w-14 h-14 object-cover rounded-full"
+              />
+              <span className="text-ascent-2">username</span>
+            </Link>
+          </div>
+          <div className='flex items-center justify-between mb-4'>
+            <span className='text-ascent-2'>Saleem Malik </span>
+            <span className='text-ascent-1 text-base'>
+              No profashion
+            </span>
           </div>
         </div>
 

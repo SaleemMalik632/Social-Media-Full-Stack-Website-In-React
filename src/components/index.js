@@ -6,6 +6,7 @@ import ProfileCard from "./ProfileCard";
 import FriendsCard from "./FriendsCard";
 import PostCard from "./PostCard";
 import EditProfile from "./EditProfile";
+import ProfileBanner from "./ProfileBanner";
 
 export {
   Loading,
@@ -16,4 +17,5 @@ export {
   FriendsCard,
   PostCard,
   EditProfile,
+  ProfileBanner,
 };
